@@ -1,23 +1,18 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Error from './components/Error';
+import Button from './components/Button';
+import CategoryBar from './components/CategoryBar';
+import AdminMenu from './components/AdminMenu';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CategoryBar />
+      <Error>ANYTHING INSIDE IS CALLED A CHILD</Error>
+      <Button onClick={()=>console.log("clicked")}>I want this text</Button>
+      <AdminMenu/>
     </div>
   );
 }
