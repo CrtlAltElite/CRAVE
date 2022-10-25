@@ -24,6 +24,7 @@ export const themeOptions= {
     },
     background: {
       default: '#dcdcdc',
+      paper: '#1f0745',
     },
   },
   overrides: {
