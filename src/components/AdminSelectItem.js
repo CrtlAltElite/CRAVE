@@ -6,26 +6,27 @@ import Select from '@mui/material/Select';
 import  MenuItem  from '@mui/material/MenuItem';
 import  Typography  from '@mui/material/Typography';
 import ItemForm from '../forms/ItemForm';
-
-const items=[{
-    "id":4,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Calming'
-  },{
-    "id":5,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Calming'
-  }]
+import useItems from '../hooks/useItems';
+// const items=[{
+//     "id":4,
+//     "name":"itemA",
+//     "desc":"itemA is good",
+//     "price":9.99,
+//     "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
+//     "category_id":2,
+//     "category_name":'Calming'
+//   },{
+//     "id":5,
+//     "name":"itemA",
+//     "desc":"itemA is good",
+//     "price":9.99,
+//     "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
+//     "category_id":2,
+//     "category_name":'Calming'
+//   }]
 
 export default function AdminSelectItem() {
+    const {error, items} = useItems()
     const [item, setItem] = useState('')
 
     const handleChange=(event)=>{
@@ -57,7 +58,7 @@ export default function AdminSelectItem() {
         >
             <MenuItem  value={"default"}><em>Select Item to Edit</em></MenuItem>
             {
-                items.map((i)=>(
+                items?.map((i)=>(
                     <MenuItem key={i.id} value={i.id}>{i.name}</MenuItem>
                 ))
             }

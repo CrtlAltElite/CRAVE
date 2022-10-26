@@ -1,10 +1,11 @@
 import { Typography, Box } from '@mui/material'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import CategoryBar from '../components/CategoryBar'
 import ItemBrowser from '../components/ItemBrowser'
 
 export default function Shop() {
     const  [actCat, setActCat] = useState({})
+
 
   return (
     <>

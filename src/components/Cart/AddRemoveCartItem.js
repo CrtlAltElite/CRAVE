@@ -1,7 +1,22 @@
 import React from 'react'
+import ButtonGroup from '@mui/material/ButtonGroup'
+import IconButton from '@mui/material/IconButton';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import RemoveCircleTwoToneIcon from '@mui/icons-material/RemoveCircleTwoTone';
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 
-export default function AddRemoveCartItem() {
+export default function AddRemoveCartItem({item}) {
   return (
-    <div>AddRemoveCartItem</div>
+    <ButtonGroup sx={{margin:"auto"}}>
+        <IconButton key="delete" onClick={()=>{console.log('delete all of ',item.name)}}>
+          <DeleteForeverTwoToneIcon fontSize="small"/>
+        </IconButton>
+        <IconButton key="rm" onClick={()=>{console.log('remove 1 of this item',item.name)}}>
+          <RemoveCircleTwoToneIcon fontSize="small"/>
+        </IconButton>
+        <IconButton key="add" onClick={()=>{console.log('add 1 more of this item',item.name)}}>
+          <AddCircleTwoToneIcon fontSize="small"/>
+        </IconButton>
+    </ButtonGroup>
   )
 }

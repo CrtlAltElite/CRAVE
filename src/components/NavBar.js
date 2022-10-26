@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
 import ThemeSwitch from './ThemeSwitch'
+import {Link} from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -116,7 +117,9 @@ export default function NavBar({children}) {
             <MenuIcon />
           </IconButton>
           <Box>
-            <img alt="CrAvE Logo" style={{maxHeight:'60px'}} src="https://res.cloudinary.com/cae67/image/upload/v1666705391/crave2_eydr78.png"/>
+            <Link to='/'>
+              <img alt="CrAvE Logo" style={{maxHeight:'60px'}} src="https://res.cloudinary.com/cae67/image/upload/v1666705391/crave2_eydr78.png"/>
+            </Link>
           </Box>
         </Toolbar>
       </AppBar>
@@ -135,24 +138,26 @@ export default function NavBar({children}) {
             {label:'Shop', path:'/shop', icon: <StorefrontTwoToneIcon sx={{color:'white'}}/>}
           ].map((navItem, index) => (
             <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+              <Link to={navItem.path} style={{textDecoration: 'none', color:'white'}}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  {navItem.icon}
-                </ListItemIcon>
-                <ListItemText primary={navItem.label} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {navItem.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={navItem.label} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>  
             </ListItem>
           ))}
         </List>
