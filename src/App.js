@@ -1,5 +1,6 @@
 
 import './App.css';
+import {useContext} from 'react';
 import Error from './components/Error';
 import Button from './components/Button';
 import CategoryBar from './components/CategoryBar';
@@ -16,26 +17,40 @@ import AdminCategory from './views/AdminCategory';
 import AdminItem from './views/AdminItem';
 import CheckOutSuccess from './views/CheckOutSuccess';
 import CartPage from './views/CartPage';
+import {Route, Routes} from 'react-router-dom';
+import SnackBar from './components/SnackBar';
+import LogOut from './components/LogOut';
+import {AppContext} from './context/AppContext';
+import RequireAdmin from './components/RequireAdmin';
+import Box from '@mui/material/Box';
+
+const HomePage = () => (<h1>Welcome To CrAvE!</h1>)
+
 function App() {
+  const {user} = useContext(AppContext)
 
   return (
-    <div>
-
+  <>
+      <SnackBar/>
       <NavBar>
-       {/* <CatForm category={{id:5, name:"Healing"}}/>
-        <ItemForm item={{
-        "id":19,
-        "name":"Bergamot",
-        "desc":"Do you know how to pronounce Bergamot? Because I don't",
-        "price":34.55,
-        "img":"https://post.healthline.com/wp-content/uploads/2018/11/Bergamot_Oil-732x549-thumbnail.jpg",
-        "category_id":4,
-        "category_name":'Energy'
-        }}/> */}
-        <CartPage/>
+        <Box sx={{minHeight:'90vh'}}>
+          <Routes>
+            <Route path="/" element={<HomePage/>}/>
+            <Route path="/cart" element={<CartPage/>}/>
+            <Route path="/shop" element={<Shop/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/checkoutsuccess" element={<CheckOutSuccess/>}/>
+            <Route path="/logout" element={<LogOut/>}/>
+
+            <Route path="/admincat" element={<RequireAdmin redirectTo="/login"><AdminCategory/></RequireAdmin>}/>
+            <Route path="/adminItem" element={<RequireAdmin redirectTo="/login"><AdminItem/></RequireAdmin>}/>
+          </Routes>
+         </Box>
+      {user?.is_admin?<AdminMenu/>:<></>}
       </NavBar>
-    </div>
+  </>
   );
 }
 
 export default App;
+

@@ -5,60 +5,39 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import AddShoppingCartTwoToneIcon from '@mui/icons-material/AddShoppingCartTwoTone';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-
-const items=[{
-    "id":2,
-    "name":"itemB",
-    "desc":"itemB is good",
-    "price":12.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Calming'
-  },{
-    "id":1,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Calming'
-  },{
-    "id":3,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Calming'
-  },{
-    "id":4,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Calming'
-  },{
-    "id":5,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Calming'
-  }
-
-]
+import useItems from '../hooks/useItems';
+import { CircularProgress } from '@mui/material';
+import Error from './Error';
+import Box from '@mui/material/Box';
 
 export default function ItemBrowser({category_id}) {
 
+    const {items, error} = useItems(category_id);
     const handleAddToCart = (item) => {
         console.log("added", item.name, "to cart")
     }
 
+    if (error){
+      return(
+        <Box sx={{display:"flex"}}>
+          <Error>{error}</Error>
+        </Box>
+      )
+    }
+  
+    if (!items){
+      return(
+        <Box sx={{display:"flex"}}>
+          <CircularProgress/>
+        </Box>
+      )
+    }
+  
+  
+
   return (
     <ImageList cols={3}>
-      {items.map((item) => (
+      {items?.map((item) => (
         <ImageListItem key={item.id}>
           <img
             src={item.img}

@@ -1,7 +1,37 @@
 import React from 'react'
+import {useTheme} from '@mui/material/styles'
+import {FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 
-export default function ChangeCartItemQuantity() {
+const range = (x) => [...Array(x).keys()]
+
+export default function ChangeCartItemQuantity({item, qty}) {
+    const theme = useTheme()
+
+    const handleChange=(event)=>{
+        console.log("qty changed", event.target.value)
+    }
+
   return (
-    <div>ChangeCartItemQuantity</div>
+    <FormControl fullWidth sx={{backgroundColor:theme.palette.background.default}}>
+        <InputLabel id="qty-sel">Qty {qty}</InputLabel>
+        <Select
+            labelId="qty-sel"
+            id="qty-sel-sel"
+            value={qty}
+            onChange={event=>handleChange(event)}
+        >
+        {
+            range(100+qty).map(
+                (qtySel)=>(
+                    qtySel<=qty || qtySel <10 || qtySel%10===0 || qtySel%25 === 0
+                    ?
+                    <MenuItem key={qtySel} value={qtySel}>{qtySel}</MenuItem>
+                    :
+                    ''
+                    )
+            )
+        }
+        </Select>
+    </FormControl>
   )
 }

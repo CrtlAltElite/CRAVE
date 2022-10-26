@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import TextField from '@mui/material/TextField'
 import Button from '../components/Button'
-
+import useLogin from '../hooks/useLogin'
 
 const FormSchema = Yup.object(
     {
@@ -18,8 +18,14 @@ const initialValues={
 }
 
 export default function LoginForm() {
+    const [loginCreds, setLoginCreds]= useState({})
+    const [error, setError]= useState('')
+
+    useLogin(loginCreds, setLoginCreds, setError)
+
     const handleSubmit=(values)=>{
         console.log(values)
+        setLoginCreds(values)
     }
 
     const formik = useFormik({
