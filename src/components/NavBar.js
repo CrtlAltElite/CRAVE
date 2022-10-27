@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -19,6 +19,14 @@ import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
 import ThemeSwitch from './ThemeSwitch'
 import {Link} from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import { AppContext } from '../context/AppContext';
+import Badge from '@mui/material/Badge';
+
 
 const drawerWidth = 240;
 
@@ -87,9 +95,26 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+
+
 export default function NavBar({children}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const {user, cart} = useContext(AppContext);
+
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -116,10 +141,56 @@ export default function NavBar({children}) {
           >
             <MenuIcon />
           </IconButton>
-          <Box>
+          <Box sx={{flexGrow:1}}>
             <Link to='/'>
               <img alt="CrAvE Logo" style={{maxHeight:'60px'}} src="https://res.cloudinary.com/cae67/image/upload/v1666705391/crave2_eydr78.png"/>
             </Link>
+          </Box>
+           
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {user?.icon?
+                <Avatar alt={user.first_name} src={`https://avatars.dicebear.com/api/adventurer/${user.icon}.svg`} />
+                :
+                <Avatar alt="Please Login" src={`https://avatars.dicebear.com/api/adventurer/${new Date().getDay()}.svg`} />
+                }
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {user?
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to='/logout' style={{textDecoration: 'none', color:'black'}}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </Link>
+                </MenuItem>
+              :
+          
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to='/login' style={{textDecoration: 'none', color:'black'}}>
+                    <Typography textAlign="center">Login</Typography>
+                  </Link>
+                </MenuItem>
+
+         
+              }
+            
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>
@@ -134,7 +205,7 @@ export default function NavBar({children}) {
         <Divider />
         <List>
           {[
-            {label:'Cart', path:'/cart', icon: <ShoppingCartTwoToneIcon sx={{color:'white'}}/>},
+            {label:'Cart', path:'/cart', icon: <Badge badgeContent={cart.length} color="primary"><ShoppingCartTwoToneIcon sx={{color:'white'}}/></Badge> },
             {label:'Shop', path:'/shop', icon: <StorefrontTwoToneIcon sx={{color:'white'}}/>}
           ].map((navItem, index) => (
             <ListItem key={index} disablePadding sx={{ display: 'block' }}>
@@ -162,13 +233,12 @@ export default function NavBar({children}) {
           ))}
         </List>
         <Divider />
-        <List>
+ 
         
-            <ListItem disablePadding sx={{ display: "absolute", bottom:"0px", alignContent:"center", justifyContent:"center" }}>
+            <ListItem disablePadding sx={{ position: "absolute", bottom:"0px", alignContent:"center", justifyContent:"center" }}>
                 {open ?<ThemeSwitch/> : ""}
             </ListItem>
-     
-        </List>
+
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

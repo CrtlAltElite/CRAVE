@@ -4,6 +4,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import { Box } from '@mui/system';
+import Error from './Error';
+import { CircularProgress } from '@mui/material';
+
+import {useParams} from 'react-router-dom';
+import useSingleItem from '../hooks/useSingleItem';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,18 +21,24 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Item1() {
-    const item={
-        "id":19,
-        "name":"Bergamot",
-        "desc":"Do you know how to pronounce Bergamot? Because I don't",
-        "price":34.55,
-        "img":"https://post.healthline.com/wp-content/uploads/2018/11/Bergamot_Oil-732x549-thumbnail.jpg",
-        "category_id":4,
-        "category_name":'Energy'
-      }    
 
+    const {itemId} =useParams();
+    const {error, item} = useSingleItem(itemId)   
 
-
+      if (!item){
+        return (
+            <Box sx={{ display:"flex"}}>
+                <CircularProgress/>
+            </Box>
+        )
+      } 
+       if (error){
+           return (
+               <Box sx={{ display:"flex"}}>
+                   <Error>{error}</Error>
+               </Box>
+           )
+       } 
   return (
       <Grid container spacing={1} sx={{m:1, pr:2, border:'1px solid', borderRadius:1}}>
         <Grid item xs={12} sm= {12} md={12}>
