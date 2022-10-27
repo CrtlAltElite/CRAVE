@@ -23,6 +23,7 @@ import LogOut from './components/LogOut';
 import {AppContext} from './context/AppContext';
 import RequireAdmin from './components/RequireAdmin';
 import Box from '@mui/material/Box';
+import SingleItem from './views/SingleItem';
 
 const HomePage = () => (<h1>Welcome To CrAvE!</h1>)
 
@@ -38,6 +39,8 @@ function App() {
             <Route path="/" element={<HomePage/>}/>
             <Route path="/cart" element={<CartPage/>}/>
             <Route path="/shop" element={<Shop/>}/>
+            <Route path="/shop/:itemId" element={<SingleItem/>}/>
+
             <Route path="/login" element={<Login/>}/>
             <Route path="/checkoutsuccess" element={<CheckOutSuccess/>}/>
             <Route path="/logout" element={<LogOut/>}/>

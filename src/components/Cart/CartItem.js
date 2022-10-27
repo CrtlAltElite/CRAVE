@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import  Avatar  from '@mui/material/Avatar';
 import ChangeCartItemQuantity from './ChangeCartItemQuantity';
 import CartCard from './CartCard';
+import { AppContext } from '../../context/AppContext';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,40 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 export default function CartItem({ item }) {
-    const cart =[{
-        "id":1,
-        "name":"itemA",
-        "desc":"itemA is good",
-        "price":9.99,
-        "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-        "category_id":2,
-        "category_name":'Calming'
-      },{
-        "id":3,
-        "name":"item3",
-        "desc":"item3 is good",
-        "price":9.99,
-        "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-        "category_id":2,
-        "category_name":'Calming'
-      },
-      {
-        "id":3,
-        "name":"item3",
-        "desc":"item3 is good",
-        "price":9.99,
-        "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-        "category_id":2,
-        "category_name":'Calming'
-      },{
-        "id":4,
-        "name":"itemD",
-        "desc":"itemD is good",
-        "price":9.99,
-        "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-        "category_id":2,
-        "category_name":'Calming'
-      }]
+        const {cart} = useContext(AppContext)
 
       useEffect(()=>{
           setQty(cart.filter((cartItem)=>cartItem.id===item.id).length)

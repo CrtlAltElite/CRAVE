@@ -19,10 +19,10 @@ const get = async (cancelToken) =>{
     }
 }
 
-const post = async (token, catName, cancelToken) =>{
+const post = async (token, cat, cancelToken) =>{
     let error
 
-    const response = await apiClientTokenAuth(token, cancelToken).post(endpoint,{name: catName})
+    const response = await apiClientTokenAuth(token, cancelToken).post(endpoint,cat)
     if (!response.ok){
         error="An Unexpected Error Occured. Please Try Again Later"
     }
@@ -34,10 +34,10 @@ const post = async (token, catName, cancelToken) =>{
 }
 
 
-const put = async (token, id, catName, cancelToken) =>{
+const put = async (token, id, cat, cancelToken) =>{
     let error
 
-    const response = await apiClientTokenAuth(token, cancelToken).put(endpoint+'/'+id,{name: catName})
+    const response = await apiClientTokenAuth(token, cancelToken).put(endpoint+'/'+id,cat)
     if (!response.ok){
         error="An Unexpected Error Occured. Please Try Again Later"
     }
