@@ -26,6 +26,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { AppContext } from '../context/AppContext';
 import Badge from '@mui/material/Badge';
+import MUILink from '@mui/material/Link';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 
 
 const drawerWidth = 240;
@@ -206,7 +208,8 @@ export default function NavBar({children}) {
         <List>
           {[
             {label:'Cart', path:'/cart', icon: <Badge badgeContent={cart.length} color="primary"><ShoppingCartTwoToneIcon sx={{color:'white'}}/></Badge> },
-            {label:'Shop', path:'/shop', icon: <StorefrontTwoToneIcon sx={{color:'white'}}/>}
+            {label:'Shop', path:'/shop', icon: <StorefrontTwoToneIcon sx={{color:'white'}}/>},
+
           ].map((navItem, index) => (
             <ListItem key={index} disablePadding sx={{ display: 'block' }}>
               <Link to={navItem.path} style={{textDecoration: 'none', color:'white'}}>
@@ -231,6 +234,28 @@ export default function NavBar({children}) {
               </Link>  
             </ListItem>
           ))}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+              <MUILink href='/home' color="inherit" underline="none" sx={{display:"flex"}}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <ConnectWithoutContactIcon style={{color:"white"}}/>
+                  </ListItemIcon>
+                  <ListItemText primary={"Social"} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </MUILink>  
+            </ListItem>
         </List>
         <Divider />
  
