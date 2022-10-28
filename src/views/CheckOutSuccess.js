@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import { AppContext } from '../context/AppContext'
 
 export default function CheckOutSuccess() {
 
+  const {emptyCart} = useContext(AppContext)
+
     useEffect(
-        ()=>{console.log('clearing cart')},
+        ()=>{emptyCart()}
+        ,
         []
     )
 

@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 import base64 from "base-64";
 
-const base = "http://127.0.0.1:5000"
+const base = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" ? "http://127.0.0.1:5000" : '' 
 
 export const apiClientNoAuth = (cancelToken) => create({
     baseURL:base,
